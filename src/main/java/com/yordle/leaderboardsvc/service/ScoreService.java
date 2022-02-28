@@ -3,6 +3,7 @@ package com.yordle.leaderboardsvc.service;
 import com.yordle.leaderboardsvc.model.Score;
 import com.yordle.leaderboardsvc.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -42,11 +43,12 @@ public class ScoreService {
         return scoreRepository.findAllByUsername(username);
     }
 
-    public List<Score> getTodaysScore() {
+    public List<Score> getTodaysScores() {
         String localDateAndTime = getLocalTime(new Date());
         String localDate = localDateAndTime.substring(0, 10);
         Query query = new Query();
         query.addCriteria(Criteria.where("date").regex(localDate));
+        query.with(Sort.by(Sort.Direction.ASC, "attempts"));
         return mongoTemplate.find(query, Score.class);
     }
 

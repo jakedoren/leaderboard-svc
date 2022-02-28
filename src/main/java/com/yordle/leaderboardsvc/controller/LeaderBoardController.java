@@ -19,8 +19,8 @@ public class LeaderBoardController {
     }
 
     @GetMapping
-    public List<Score> sayHello() {
-        return scoreService.getTodaysScore();
+    public List<Score> getTodaysScores() {
+        return scoreService.getTodaysScores();
     }
 
     @PostMapping
