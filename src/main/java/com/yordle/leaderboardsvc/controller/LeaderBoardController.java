@@ -18,12 +18,12 @@ public class LeaderBoardController {
         this.scoreService = scoreService;
     }
 
-    @GetMapping
+    @GetMapping("/today")
     public List<Score> getTodaysScores() {
         return scoreService.getTodaysScores();
     }
 
-    @PostMapping
+    @PostMapping("/create/score")
     public Score createScore(@RequestBody Score score) {
         return scoreService.createScore(score);
     }
