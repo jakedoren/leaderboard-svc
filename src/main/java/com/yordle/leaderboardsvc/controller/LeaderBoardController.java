@@ -1,5 +1,6 @@
 package com.yordle.leaderboardsvc.controller;
 
+import com.yordle.leaderboardsvc.model.GuessResponse;
 import com.yordle.leaderboardsvc.model.Matches;
 import com.yordle.leaderboardsvc.model.Score;
 import com.yordle.leaderboardsvc.service.GuessService;
@@ -33,8 +34,10 @@ public class LeaderBoardController {
     }
 
     @PostMapping("/guess")
-    public Matches validateGuess(@RequestParam String guess) {
-        return guessService.getMatches(guess);
+    public GuessResponse validateGuess(@RequestParam String guess) {
+        Matches matches = guessService.getMatches(guess);
+        boolean isDailyWord = guessService.validateGuess(guess);
+        return new GuessResponse(matches, isDailyWord);
     }
 
     @PostMapping("/create/score")
