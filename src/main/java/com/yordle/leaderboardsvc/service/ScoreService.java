@@ -52,4 +52,14 @@ public class ScoreService {
         return mongoTemplate.find(query, Score.class);
     }
 
+    public Boolean attemptedToday(String username) {
+        String localDateAndTime = getLocalTime(new Date());
+        String localDate = localDateAndTime.substring(0, 10);
+        Query query = new Query();
+        query.addCriteria(Criteria.where("date").regex(localDate));
+        query.addCriteria(Criteria.where("username").regex(username));
+        Score attempt = mongoTemplate.findOne(query, Score.class);
+        return attempt != null;
+    }
+
 }
