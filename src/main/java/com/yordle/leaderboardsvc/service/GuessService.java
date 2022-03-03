@@ -50,6 +50,7 @@ public class GuessService {
         ArrayList<Integer> exactMatches = new ArrayList<>();
         if(!matchedLetters.isEmpty()) {
             for (Character matchedLetter : matchedLetters) {
+                // need to get multiple indexes if the letter exists multiple times
                 int guessIndex = indexOf(guessArray, matchedLetter);
                 if(guessArray[guessIndex] == dailyWordArray[guessIndex]) {
                     exactMatches.add(guessIndex);
