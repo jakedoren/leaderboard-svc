@@ -3,11 +3,14 @@ package com.yordle.leaderboardsvc.model;
 import java.util.ArrayList;
 
 public class Matches {
-    private final ArrayList<Integer> partialMatchIndexes;
-    private final ArrayList<Integer> exactMatchIndexes;
+    private ArrayList<Integer> partialMatchIndexes;
+    private ArrayList<Integer> exactMatchIndexes;
 
-    public Matches(ArrayList<Integer> partialMatchIndexes, ArrayList<Integer> exactMatchIndexes) {
+    public void setPartialMatchIndexes(ArrayList<Integer> partialMatchIndexes) {
         this.partialMatchIndexes = partialMatchIndexes;
+    }
+
+    public void setExactMatchIndexes(ArrayList<Integer> exactMatchIndexes) {
         this.exactMatchIndexes = exactMatchIndexes;
     }
 
@@ -18,5 +21,4 @@ public class Matches {
     public ArrayList<Integer> getExactMatchIndexes() {
         return exactMatchIndexes;
     }
-
 }

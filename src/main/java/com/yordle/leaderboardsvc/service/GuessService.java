@@ -58,7 +58,14 @@ public class GuessService {
                 }
             }
         }
-        return new Matches(partialMatches, exactMatches);
+        Matches matches = new Matches();
+        if(!partialMatches.isEmpty()) {
+            matches.setPartialMatchIndexes(partialMatches);
+        }
+        if(!exactMatches.isEmpty()) {
+            matches.setExactMatchIndexes(exactMatches);
+        }
+        return matches;
     }
 
 }
