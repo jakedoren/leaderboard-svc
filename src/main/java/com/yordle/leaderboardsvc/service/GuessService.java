@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GuessService {
@@ -33,6 +34,17 @@ public class GuessService {
         return -1;
     }
 
+    private List<Integer> indexOfAll(char[] array, char letter) {
+        final List<Integer> indexList = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            if(array[i] == letter) {
+                indexList.add(i);
+            }
+        }
+        System.out.println(indexList);
+        return indexList;
+    }
+
     public Matches getMatches(String guess) throws ResponseStatusException {
         if(guess.length() > 5) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Word must be 5 characters");
@@ -52,6 +64,8 @@ public class GuessService {
             for (Character matchedLetter : matchedLetters) {
                 // need to get multiple indexes if the letter exists multiple times
                 int guessIndex = indexOf(guessArray, matchedLetter);
+                // Need to add another loop, for the logic below as now we are getting multiple indexes when necessary
+                indexOfAll(guessArray, matchedLetter);
                 if(guessArray[guessIndex] == dailyWordArray[guessIndex]) {
                     exactMatches.add(guessIndex);
                 } else {
