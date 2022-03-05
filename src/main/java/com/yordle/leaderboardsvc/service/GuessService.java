@@ -27,13 +27,6 @@ public class GuessService {
         return guess.equals(dailyWord.getWord());
     }
 
-    private int indexOf(char[] array, char key) {
-        for (int i = 0; i < array.length; i++)
-            if (array[i] == key)
-                return i;
-        return -1;
-    }
-
     private List<Integer> indexOfAll(char[] array, char letter) {
         final List<Integer> indexList = new ArrayList<>();
         for (int i = 0; i < array.length; i++) {
@@ -41,7 +34,6 @@ public class GuessService {
                 indexList.add(i);
             }
         }
-        System.out.println(indexList);
         return indexList;
     }
 
@@ -62,14 +54,13 @@ public class GuessService {
         ArrayList<Integer> exactMatches = new ArrayList<>();
         if(!matchedLetters.isEmpty()) {
             for (Character matchedLetter : matchedLetters) {
-                // need to get multiple indexes if the letter exists multiple times
-                int guessIndex = indexOf(guessArray, matchedLetter);
-                // Need to add another loop, for the logic below as now we are getting multiple indexes when necessary
-                indexOfAll(guessArray, matchedLetter);
-                if(guessArray[guessIndex] == dailyWordArray[guessIndex]) {
-                    exactMatches.add(guessIndex);
-                } else {
-                    partialMatches.add(guessIndex);
+                List<Integer> guessIndexes = indexOfAll(guessArray, matchedLetter);
+                for(Integer index : guessIndexes) {
+                    if(guessArray[index] == dailyWordArray[index] && !exactMatches.contains(index)) {
+                        exactMatches.add(index);
+                    } else if(!partialMatches.contains(index) && !exactMatches.contains(index)){
+                        partialMatches.add(index);
+                    }
                 }
             }
         }
