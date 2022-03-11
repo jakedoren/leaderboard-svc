@@ -24,7 +24,7 @@ public class GuessService {
 
     public boolean validateGuess(String guess) {
         Word dailyWord = getDailyWord();
-        return guess.equals(dailyWord.getWord());
+        return guess.equals(dailyWord.getWord()) && dailyWord.isDailyWord();
     }
 
     private List<Integer> indexOfAll(char[] array, char letter) {
@@ -38,7 +38,7 @@ public class GuessService {
     }
 
     public Matches getMatches(String guess) throws ResponseStatusException {
-        if(guess.length() > 5) {
+        if(guess.length() != 5) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Word must be 5 characters");
         }
         Word dailyWord = getDailyWord();
